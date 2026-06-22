@@ -14,6 +14,6 @@ void sleep_ms(int milliseconds) {
 #ifdef _WIN32
     Sleep(milliseconds);
 #else
-    sleep(milliseconds * 1000);
+    sleep(milliseconds);
 #endif
 }
