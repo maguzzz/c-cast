@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "network.h"
+#include "network/network.h"
 
 int main() {
     while(true){

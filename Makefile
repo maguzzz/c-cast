@@ -1,6 +1,21 @@
+CC = gcc
+CFLAGS = -Wall -std=c99
+
+rwildcard = $(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
+
+SRC = $(call rwildcard,src/,*.c)
+
+OUT = build/output.exe
+
+.PHONY: all build run clean
+
+all: build run
+
 build:
-	gcc -Wall -std=c99 src/*.c -o output.exe
+	$(CC) $(CFLAGS) $(SRC) -o $(OUT)
+
 run:
-	./output
+	./$(OUT)
+
 clean:
-	del output.exe
+	rm -f build/*.exe
