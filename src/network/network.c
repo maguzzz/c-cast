@@ -4,6 +4,8 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include "network.h"
 
 // OS-specific includes for the logic
@@ -13,7 +15,7 @@
     #include <unistd.h>
 #endif
 
-// Here is where we actually IMPLEMENT the logic
+
 void sleep_ms(int milliseconds) {
 #ifdef _WIN32
     Sleep(milliseconds);
@@ -21,4 +23,3 @@ void sleep_ms(int milliseconds) {
     sleep(milliseconds / 1000);
 #endif
 }
-
