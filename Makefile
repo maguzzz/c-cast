@@ -8,4 +8,4 @@ run:
 	./build/out
 
 clean:
-	rmdir /s /q build
+	rm -rf build
