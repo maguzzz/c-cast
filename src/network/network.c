@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 #include "network.h"
 
@@ -15,8 +16,7 @@ void sleep_ms(int milliseconds) {
 
 
 
-void Client_Connect(char* ip, int port){
-    int socketFD = socket(AF_INET,SOCK_DGRAM,0);
+void Client_Connect(char* ip, int port, int socketFD){
 
     if(socketFD < 0){
         printf("Error: Faild to create Socket\n");
@@ -33,6 +33,7 @@ void Client_Connect(char* ip, int port){
     };
 
     int Connection_Result = connect(socketFD,(struct sockaddr *)&address,sizeof address);
+
 
     if(Connection_Result >= 0){
         printf("Connection Made Successful\n");
