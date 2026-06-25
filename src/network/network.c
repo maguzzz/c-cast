@@ -8,21 +8,12 @@
 
 #include "network.h"
 
-// OS-specific includes for the logic
-#ifdef _WIN32
-    #include <windows.h>
-#else
-    #include <unistd.h>
-#endif
-
 
 void sleep_ms(int milliseconds) {
-#ifdef _WIN32
-    Sleep(milliseconds);
-#else
     sleep(milliseconds / 1000);
-#endif
 }
+
+
 
 void Client_Connect(char* ip, int port){
     int socketFD = socket(AF_INET,SOCK_DGRAM,0);
