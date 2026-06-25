@@ -1,6 +1,7 @@
 .PHONY: build run clean
 
 build:
+	rm -rf build
 	mkdir build
 	gcc -Wall src/main.c src/network/network.c -o build/out
 
