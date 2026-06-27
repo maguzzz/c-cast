@@ -7,9 +7,17 @@
 
 int main()
 {
+    char userInput;
+
+    do{
+        printf("\nConnect as [C]lient or [S]erver | ");
+        scanf("%c", &userInput);
+
+    }while(userInput != 'C' && userInput != 'S');
+
     int socketFD = socket(AF_INET,SOCK_DGRAM,0);
 
-    Client_Connect("172.24.193.153", 5000, socketFD);
+    Client_Connect("172.18.145.93", 5000, socketFD);
 
     char* message = "Message!!\n";
 
