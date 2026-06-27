@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// Networking headers
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -32,7 +31,7 @@ void Client_Connect(char* ip, int port, int socketFD){
         return;
     };
 
-    int Connection_Result = connect(socketFD,(struct sockaddr *)&address,sizeof address);
+    int Connection_Result = connect(socketFD,(struct sockaddr *)&address,sizeof(address)) < 0;
 
 
     if(Connection_Result >= 0){
@@ -42,3 +41,25 @@ void Client_Connect(char* ip, int port, int socketFD){
         printf("Error: Connection faild\n");
     }
 }
+
+
+void Server_Connect(char* ip, int port, int socketFD){
+
+    if(socketFD < 0){
+        printf("Error: Faild to create Socket\n");
+        return;
+    }
+
+    struct sockaddr_in servaddr;
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(port); 
+    servaddr.sin_addr.s_addr = INADDR_ANY; 
+    
+    if ( bind(socketFD,(const struct sockaddr *)&servaddr,  sizeof(servaddr)) >= 0 ){ 
+        printf("Bind was Successful"); 
+    }else{
+        printf("bind failed"); 
+        return;
+    }
+
+};

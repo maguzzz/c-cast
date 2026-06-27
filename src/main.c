@@ -26,6 +26,8 @@ int main()
     char userInput[100]; 
     char choice = ' ';
 
+    int socketFD = socket(AF_INET,SOCK_DGRAM,0);
+
     do{
 
         printf("\nConnect as [C]lient or [S]erver | ");
@@ -44,7 +46,6 @@ int main()
     }while(choice != 'C' && choice != 'S');
 
     if(isClient){
-        int socketFD = socket(AF_INET,SOCK_DGRAM,0);
 
         Client_Connect("172.18.145.93", 5000, socketFD);
 
@@ -56,6 +57,8 @@ int main()
             printf("Sending message\n");
             sleep_ms(1000);
         }   
+    }else if(isServer){
+        Server_Connect("172.18.145.93",5000,socketFD);
     }
 
     return 0;
