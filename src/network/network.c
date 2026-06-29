@@ -9,16 +9,10 @@
 #include "network.h"
 
 
-void sleep_ms(int milliseconds) {
-    sleep(milliseconds / 1000);
-}
-
-
-
 void Client_Connect(char* ip, int port, int socketFD){
 
     if(socketFD < 0){
-        printf("Error: Faild to create Socket\n");
+        printf("Error: Failed to create Socket\n");
         return;
     }
 
@@ -35,7 +29,7 @@ void Client_Connect(char* ip, int port, int socketFD){
         printf("Connection Made Successful\n");
         printf("Connected to IP: %s:%d\n",ip,port);
     }else{
-        printf("Error: Connection faild\n");
+        printf("Error: Connection Failed\n");
     }
 }
 
@@ -43,7 +37,7 @@ void Client_Connect(char* ip, int port, int socketFD){
 void Server_Connect(int port, int socketFD){
 
     if(socketFD < 0){
-        printf("Error: Faild to create Socket\n");
+        printf("Error: Failed to create Socket\n");
         return;
     }
 
@@ -65,7 +59,7 @@ void Server_Receive(char* buffer,int bufferSize,struct sockaddr_in* clientAddres
 
     socklen_t len = sizeof(*clientAddress);
 
-    int bytesRead = recvfrom(socketFD,buffer,bufferSize,0,(struct sockaddr*)clientAddress,&len);
+    int bytesRead = recvfrom(socketFD,buffer,bufferSize-1,0,(struct sockaddr*)clientAddress,&len);
     
     printf("Bytes Read |%d\n", bytesRead);
 

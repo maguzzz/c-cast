@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "network/network.h"
@@ -60,7 +61,7 @@ int main()
             getUserInput(message,sizeof(message));
             send(socketFD,message,strlen(message),0);
             printf("Sending message\n");
-            //sleep_ms(1000);
+            //sleep(1);
         }   
     }else if(isServer){
         Server_Connect(5000,socketFD);
@@ -75,5 +76,7 @@ int main()
         }
     }
 
+
+    close(socketFD);
     return 0;
 }
