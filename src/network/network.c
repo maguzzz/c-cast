@@ -67,11 +67,10 @@ void Server_Receive(char* buffer,int bufferSize,struct sockaddr_in* clientAddres
 
     int bytesRead = recvfrom(socketFD,buffer,bufferSize,0,(struct sockaddr*)clientAddress,&len);
     
-    printf("Bytes Read |%d\n", len);
+    printf("Bytes Read |%d\n", bytesRead);
 
     if (bytesRead > 0) {
         buffer[bytesRead] = '\0';
-
         char* clientIP = inet_ntoa(clientAddress->sin_addr);
 
         printf("Received message: %s", buffer);

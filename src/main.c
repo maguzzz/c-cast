@@ -28,8 +28,6 @@ int main()
     char userInput[100]; 
     char choice = ' ';
 
-    char buffer[100];
-
     int socketFD = socket(AF_INET,SOCK_DGRAM,0);
 
     do{
@@ -54,20 +52,21 @@ int main()
         Client_Connect("127.0.0.1", 5000, socketFD);
 
         
-        char message[100];
+        char message[1000];
 
 
         while (true)
         {
-            getUserInput(message,sizeof(buffer));
+            getUserInput(message,sizeof(message));
             send(socketFD,message,strlen(message),0);
             printf("Sending message\n");
-            sleep_ms(1000);
+            //sleep_ms(1000);
         }   
     }else if(isServer){
         Server_Connect(5000,socketFD);
 
         struct sockaddr_in clientAddr;
+        char buffer[1000];
 
         while (true) {
             printf("\n\nWaiting for a message...\n");
