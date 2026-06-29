@@ -53,21 +53,24 @@ int main()
 
         Client_Connect("127.0.0.1", 5000, socketFD);
 
-        char* message = "Message!!\n";
+        
+        char message[100];
+
 
         while (true)
         {
+            getUserInput(message,sizeof(buffer));
             send(socketFD,message,strlen(message),0);
             printf("Sending message\n");
             sleep_ms(1000);
         }   
     }else if(isServer){
-        Server_Connect("127.0.0.1",5000,socketFD);
+        Server_Connect(5000,socketFD);
 
         struct sockaddr_in clientAddr;
 
         while (true) {
-            printf("Waiting for a message...\n");
+            printf("\n\nWaiting for a message...\n");
 
             Server_Receive(buffer, sizeof(buffer), &clientAddr, socketFD);
         }

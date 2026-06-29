@@ -74,8 +74,8 @@ void Server_Receive(char* buffer,int bufferSize,struct sockaddr_in* clientAddres
 
         char* clientIP = inet_ntoa(clientAddress->sin_addr);
 
-        printf("Received message: %s\n", buffer);
-        printf("Sent by IP: %s\n", clientIP);
+        printf("Received message: %s", buffer);
+        printf("\nSent by IP: %s\n", clientIP);
     } else {
         printf("Error or nothing received.\n");
     }
