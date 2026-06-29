@@ -3,6 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include "network/network.h"
 
 #include <sys/socket.h>
@@ -26,6 +28,8 @@ int main()
     char userInput[100]; 
     char choice = ' ';
 
+    char buffer[100];
+
     int socketFD = socket(AF_INET,SOCK_DGRAM,0);
 
     do{
@@ -47,7 +51,7 @@ int main()
 
     if(isClient){
 
-        Client_Connect("172.18.145.93", 5000, socketFD);
+        Client_Connect("127.0.0.1", 5000, socketFD);
 
         char* message = "Message!!\n";
 
@@ -58,7 +62,15 @@ int main()
             sleep_ms(1000);
         }   
     }else if(isServer){
-        Server_Connect("172.18.145.93",5000,socketFD);
+        Server_Connect("127.0.0.1",5000,socketFD);
+
+        struct sockaddr_in clientAddr;
+
+        while (true) {
+            printf("Waiting for a message...\n");
+
+            Server_Receive(buffer, sizeof(buffer), &clientAddr, socketFD);
+        }
     }
 
     return 0;

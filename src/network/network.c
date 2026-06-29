@@ -31,10 +31,7 @@ void Client_Connect(char* ip, int port, int socketFD){
         return;
     };
 
-    int Connection_Result = connect(socketFD,(struct sockaddr *)&address,sizeof(address)) < 0;
-
-
-    if(Connection_Result >= 0){
+    if(connect(socketFD,(struct sockaddr *)&address,sizeof(address)) >= 0){
         printf("Connection Made Successful\n");
         printf("Connected to IP: %s:%d\n",ip,port);
     }else{
@@ -43,7 +40,7 @@ void Client_Connect(char* ip, int port, int socketFD){
 }
 
 
-void Server_Connect(char* ip, int port, int socketFD){
+void Server_Connect(int port, int socketFD){
 
     if(socketFD < 0){
         printf("Error: Faild to create Socket\n");
@@ -56,10 +53,30 @@ void Server_Connect(char* ip, int port, int socketFD){
     servaddr.sin_addr.s_addr = INADDR_ANY; 
     
     if ( bind(socketFD,(const struct sockaddr *)&servaddr,  sizeof(servaddr)) >= 0 ){ 
-        printf("Bind was Successful"); 
+        printf("Bind was Successful\n"); 
     }else{
-        printf("bind failed"); 
+        printf("bind failed\n"); 
         return;
     }
 
 };
+
+void Server_Receive(char* buffer,int bufferSize,struct sockaddr_in* clientAddress,int socketFD){
+
+    socklen_t len = sizeof(*clientAddress);
+
+    int bytesRead = recvfrom(socketFD,buffer,bufferSize,0,(struct sockaddr*)clientAddress,&len);
+    
+    printf("Bytes Read |%d\n", len);
+
+    if (bytesRead > 0) {
+        buffer[bytesRead] = '\0';
+
+        char* clientIP = inet_ntoa(clientAddress->sin_addr);
+
+        printf("Received message: %s\n", buffer);
+        printf("Sent by IP: %s\n", clientIP);
+    } else {
+        printf("Error or nothing received.\n");
+    }
+}
