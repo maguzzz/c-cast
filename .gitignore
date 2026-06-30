@@ -56,3 +56,4 @@ dkms.conf
 
 
 Makefile
+.vscode/c_cpp_properties.json
