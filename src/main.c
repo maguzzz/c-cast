@@ -50,7 +50,7 @@ int main()
 
     if(isClient){
 
-        Client_Connect("217.175.193.11", 5000, socketFD);
+        Client_Connect("10.253.255.255", 5000, socketFD);
 
         
         char message[1000];
